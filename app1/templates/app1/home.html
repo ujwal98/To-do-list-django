@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Home</title>
-</head>
-<body>
+{% extends "app1/base.html" %}
+
+
+	{% block content %}
 	<h1>To-Do List</h1>
+	{% if messages %}
+		{% for message in messages %}
+		<div>
+			{{ message }}
+		</div>	
+		{% endfor %}
+	{% endif %}
 	<form action="{% url 'add' %}" method="POST" accept-charset="utf-8">
 		{% csrf_token %}
 		{{form.task}}
@@ -13,5 +18,5 @@
 	{% for todo in tasks %}
 	<a href="{% url 'complete' todo.id %}"><li>{{todo.task}}</li></a>
 	{% endfor %}
-</body>
-</html>
+
+	{% endblock %}

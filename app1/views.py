@@ -27,11 +27,6 @@ def addTodo(request):
 def TodoComplete(request,Todo_id):
 	todo = add.objects.get(pk=Todo_id)
 	todo.delete()
-	# todo.save()
-
 	return redirect('/')
 
-# def deleteCompleted(request):
-# 	add.objects.filter(complete__exact=True).delete()
-
-# 	return redirect('/')	
+	
