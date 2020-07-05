@@ -19,6 +19,7 @@
     				<div class="navbar-header">
     					<a style="padding-right: 15px" href="{% url 'app1-Home' %}">Home</a>
     					{% if user.is_authenticated %}
+    					<a style="padding-right: 15px" href="{% url 'profile' %}">Personalized To-Do</a>
     					<a style="padding-right: 15px" href="{% url 'logout' %}">Logout</a>
     					{% else %}
       					<a style="padding-right: 15px" href="{% url 'register' %}">Register</a>
