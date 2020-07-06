@@ -5,7 +5,10 @@ from .forms import todo_form
 
 
 def home(request):
-	tasks = add.objects.order_by('id')
+	if request.user.is_authenticated:
+		tasks = add.objects.filter(user=request.user).order_by('id')
+	else:
+		tasks = add.objects.order_by('id')
 	form = todo_form()
 	context={'tasks':tasks,'form':form}
 	return render(request,'app1/home.html',context)
@@ -18,8 +21,12 @@ def addTodo(request):
 	form = todo_form(request.POST)
 
 	if form.is_valid():
-		new_todo = add(task = request.POST['task'])
-		new_todo.save()
+		if request.user.is_authenticated:
+			new_todo = add(user=request.user, task = request.POST['task'])
+			new_todo.save()
+		else:
+			new_todo = add(user=Null, task = request.POST['task'])
+			new_todo.save()
 
 	return redirect('/')
 
